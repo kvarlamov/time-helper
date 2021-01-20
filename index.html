@@ -137,7 +137,7 @@
         },
         methods: {
             addTarget() { 
-                let newTarget = {...this.target, passedTime: 0, id: this.targetId++};
+                let newTarget = {...this.target, passedTime: 0, id: "btn" + this.targetId++};
                 this.targets.push(newTarget);
                 this.target.name = "";
                 this.target.time = 0;
