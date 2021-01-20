@@ -2,3 +2,4 @@ CSS
     + Move styles in style or single file CSS
 Functionality
     Add reset button (and maybe auto reset on new day.... future plans)
+    Add time represent like hh:mm

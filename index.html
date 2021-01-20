@@ -95,11 +95,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>test</td>
-                        <td>10</td>
-                        <td>50%</td>
-                        <td><button>start</button></td>
+                    <tr v-for="t in targets">
+                        <td>{{t.name}}</td>
+                        <td>{{t.time}}</td>
+                        <td>{{t.passedTime}}</td>
+                        <td><button>{{startBtn}}</button></td>
                     </tr>
                 </tbody>                
             </table>
@@ -107,13 +107,13 @@
             <form action="">
                 <div class="style2">
                     <label for="targetName">Target: </label>
-                    <input type="text" name="targetName" id="target-name">
+                    <input type="text" name="targetName" id="target-name" v-model="target.name">
                 </div>
                 <div class="style2">
                     <label for="targetTime">Time: </label>
-                    <input type="text" name="targetTime" id="target-time">
+                    <input type="text" name="targetTime" id="target-time" v-model="target.time">
                 </div>
-                <button>Save</button>      
+                <button @click.prevent="addTarget">Save</button>
             </form>
         </div>
     </div>
@@ -123,10 +123,17 @@
     var app = new Vue({
         el: '#app',
         data: {
-            
+            targets:[],
+            target:{name: "", time: 0},
+            startBtn: "start"
         },
         methods: {
-            
+            addTarget() { 
+                let newTarget = {...this.target, passedTime: 0};
+                this.targets.push(newTarget);
+                this.target.name = "";
+                this.target.time = 0;
+            }
         }
     })
 </script>
