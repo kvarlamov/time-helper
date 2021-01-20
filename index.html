@@ -66,6 +66,13 @@
         /* Internet Explorer */
         filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     }
+    .active-btn{
+        background:green;
+        
+    }
+    .inactive-btn{
+        background: lightgray;
+    }
 </style>
 </head>
 <body>
@@ -96,10 +103,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="t in targets">
-                        <td>{{t.name}}</td>
-                        <td>{{t.time}}</td>
-                        <td>{{t.passedTime}}</td>
-                        <td><button>{{startBtn}}</button></td>
+                        <td>{{ t.name }}</td>
+                        <td>{{ t.time }}</td>
+                        <td>{{ t.passedTime }}</td>
+                        <td><button @click="startTimer($event)" :id="t.id" class="start-stop-btn">start</button></td>
                     </tr>
                 </tbody>                
             </table>
@@ -124,15 +131,37 @@
         el: '#app',
         data: {
             targets:[],
-            target:{name: "", time: 0},
-            startBtn: "start"
+            target:{name: "", time: 0},            
+            timerOn: false,
+            targetId: 1
         },
         methods: {
             addTarget() { 
-                let newTarget = {...this.target, passedTime: 0};
+                let newTarget = {...this.target, passedTime: 0, id: this.targetId++};
                 this.targets.push(newTarget);
                 this.target.name = "";
                 this.target.time = 0;
+            },
+            startTimer(e) {
+                const btns = Array.from(document.getElementsByClassName("start-stop-btn")).filter(b => b.id != e.target.id);
+                if (!this.timerOn){
+                    e.target.innerText = "stop";
+                    e.target.classList.add('active-btn');                    
+                    btns.forEach(b => {
+                        b.classList.add("inactive-btn");
+                        b.disabled = true;
+                    });
+                    this.timerOn = true;                    
+                }
+                else {
+                    e.target.innerText = "start";
+                    e.target.classList.remove("active-btn"); 
+                    btns.forEach(b => {
+                        b.classList.remove("inactive-btn");
+                        b.disabled = false;
+                    });                   
+                    this.timerOn = false;                    
+                }
             }
         }
     })
