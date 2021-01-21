@@ -3,3 +3,4 @@ CSS
 Functionality
     Add reset button (and maybe auto reset on new day.... future plans)
     Add time represent like hh:mm
+    Add authentification - need to share storage between devices
